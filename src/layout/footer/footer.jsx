@@ -152,6 +152,8 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <div>footer</div>
-  )
+    <footer className="bg-slate-800">
+      <h1 className="displa-2 lead lw-bolder text-white uppercase pt-10 pb-10 text-center">This is afooter of the site</h1>
+    </footer>
+  );
 }
