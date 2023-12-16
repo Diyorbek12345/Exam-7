@@ -12,7 +12,7 @@ export const Cart = () => {
     <div className="">
       {cart?.map((product) => (
         <div key={product.id} className="d-flex mt-10 items-center">
-          )
+          
           <div className="col-md-6 mb-10">
             <img
               src={product.img}

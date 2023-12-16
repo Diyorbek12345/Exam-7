@@ -38,11 +38,12 @@ import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
 import { Products } from "./pages/Products";
-import { Login } from "./pages/Login";
 import { Product } from "./components/Product";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Cart } from "./pages/cart/cart";
 import { Error } from "./pages/error";
+import { Registr } from "./pages/registr";
+import { Login } from "./pages/Login";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path="products/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={<Login />} />
+          <Route path="registr" element={<Registr />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

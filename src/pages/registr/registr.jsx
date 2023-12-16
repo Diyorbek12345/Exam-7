@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-
-import { LoginUser, logout } from "../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { z } from "zod";
+import { singUpUser } from "../../redux/cartSlice";
 
-export const Login = () => {
+export const Registr = () => {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
-  const loginHandler = (e) => {
-    dispatch(LoginUser({ email, password }));
-    e.preventDefault();
-  };
-
-  const logoutHandler = () => {
-    dispatch(logout);
-  };
 
   const H1 = styled.h1`
     font-size: 24px;
@@ -45,6 +37,7 @@ export const Login = () => {
     color: white;
     background-color: skyblue;
   `;
+
   const SubmitButton = styled.button`
     padding: 10px 20px;
     border-radius: 10px;
@@ -53,18 +46,29 @@ export const Login = () => {
     color: white;
   `;
 
+  const registrHandle = () => {
+    dispatch(singUpUser({ name, email, password }));
+  };
   return (
     <div>
       <div className="container">
-        <H1>Log in</H1>
+        <H1>Registr</H1>
 
         <form className="mt-20 text-center">
           <div>
             <Input
-              placeholder="Userneme"
+              placeholder="Username"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div>
+            <Input
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -75,10 +79,9 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <SubmitButton onClick={loginHandler} type="submit">
-            Log in
+          <SubmitButton onClick={registrHandle} type="submit">
+            Submit
           </SubmitButton>
-          <button onClick={logoutHandler}>log out</button>
         </form>
       </div>
     </div>
