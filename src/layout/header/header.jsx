@@ -10,13 +10,19 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 import { Cart } from "../../pages/cart/cart";
 import { useSelector } from "react-redux";
+import style from "./header.module.css";
 
 function Header() {
   const totalNumber = useSelector((state) => state.user.cart);
 
   return (
-    <header className="pb-100">
-      <Navbar bg="dark" expand="lg" variant="dark" className="py-3 shadow-lg">
+    <header className={style.header}>
+      <Navbar
+        bg="dark"
+        expand="lg"
+        variant="dark"
+        className="py-3 shadow-lg mt-100"
+      >
         <Container>
           <Link to="/">
             <Navbar.Brand href="#" className="fw-bold fs-20">
@@ -47,16 +53,16 @@ function Header() {
 
             <div className="buttons d-flex items-center gap-x-2">
               <Link to="/login">
-                <a href="" className="btn btn-outline-light d-flex gap-x-2">
+                <button className="btn btn-outline-light d-flex gap-x-2">
                   <img src={login} alt="" />
                   Login
-                </a>
+                </button>
               </Link>
               <Link to="/registr">
-                <a href="" className="btn btn-outline-light d-flex gap-x-2">
+                <button className="btn btn-outline-light d-flex gap-x-2">
                   <img src={regist} alt="" />
                   Registr
-                </a>
+                </button>
               </Link>
               <Link to="/cart">
                 <button className="btn btn-outline-light d-flex gap-x-2">

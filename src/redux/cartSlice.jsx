@@ -1,136 +1,17 @@
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// // import { cartNumber } from "../layout/header/header";
-
-// const initialState = {
-//   cart: [],
-//   quantity: 0,
-//   totalPrice: 0,
-//   msg: "",
-//   user: "",
-//   token: "",
-//   loading: false,
-//   error: "",
-// };
-
-// export const singUpUser = createAsyncThunk("signupuser", async (body) => {
-//   const res = await fetch("ddddddddddd", {
-//     method: "post",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(body),
-//   });
-//   return await res.json();
-// });
-// export const LoginUser = createAsyncThunk("loginuser", async (body) => {
-//   const res = await fetch("https://fakestoreapi.com/auth/login", {
-//     method: "post",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(body),
-//   });
-//   return await res.json();
-// });
-
-// export const cartSlice = createSlice({
-//   name: "user",
-//   initialState,
-//   reducers: {
-//     AddCard: (state, action) => {
-//       const find = state.cart.findIndex(
-//         (product) => product.id === action.payload.id
-//       );
-//       if (find >= 0) {
-//         state.cart[find].quantity += 1;
-//       } else {
-//         const tempvar = { ...action.payload, quantity: 1 };
-//         state.cart.push(action.payload);
-//       }
-//       // cartNumber();
-//     },
-//     INCREMENT: (state, action) => {
-//       state.quantity += 1;
-//     },
-
-//     DECREMENT: (state) => {
-//       state.quantity -= 1;
-
-//       // console.log(state.quantity);
-//     },
-//     addToken: (state, action) => {
-//       state.token = localStorage.getItem("token");
-//     },
-//     addUser: (state, action) => {
-//       state.user = localStorage.getItem("user");
-//     },
-//     logout: (state, action) => {
-//       state.token = null
-//       localStorage.clear()
-//     },
-//   },
-
-//   extraReducers: {
-//     //sign in
-//     [LoginUser.pending]: (state, action) => {
-//       state.loading = true;
-//     },
-//     [LoginUser.fulfilled]: (
-//       state,
-//       { payload: { error, msg, token, user } }
-//     ) => {
-//       state.loading = false;
-//       if (error) {
-//         state.error = error;
-//       } else {
-//         state.msg = msg;
-//         state.token = token;
-//         state.user = user;
-
-//         localStorage.setItem("msg", msg);
-//         localStorage.setItem("token", token);
-//         localStorage.setItem("user", JSON.stringify(user));
-//       }
-//     },
-//     [LoginUser.rejected]: (state, action) => {
-//       state.loading = true;
-//     },
-
-//     //sign up
-//     [singUpUser.pending]: (state, action) => {
-//       state.loading = true;
-//     },
-//     [singUpUser.fulfilled]: (state, { payload: { error, msg } }) => {
-//       state.loading = false;
-//       if (error) {
-//         state.error = error;
-//       } else {
-//         state.msg = msg;
-//       }
-//     },
-//     [singUpUser.rejected]: (state, action) => {
-//       state.loading = true;
-//     },
-//   },
-// });
-
-// export const { AddCard, INCREMENT, DECREMENT, addToken, addUser, logout } = cartSlice.actions;
-
-// export default cartSlice.reducer;
-
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { REMOVE_ITEM } from "./actions";
 
 const initialState = {
   cart: [],
   quantity: 0,
-  totalPrice: 0,
+  total: 0,
   msg: "",
   user: "",
   token: "",
   loading: false,
   error: "",
 };
+
 
 export const singUpUser = createAsyncThunk("signupuser", async (body) => {
   const res = await fetch("ddddddddddd", {
@@ -168,15 +49,23 @@ export const cartSlice = createSlice({
         const tempvar = { ...action.payload, quantity: 1 };
         state.cart.push(tempvar);
       }
-      // cartNumber();
     },
-    INCREMENT: (state, action) => {
-      state.quantity += 1;
+    removeItem: (state, action) => {
+      const itemId = action.payload;
+      if (state.cartItems) {
+        state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
+      }
+      return state;
     },
-    DECREMENT: (state) => {
-      state.quantity -= 1;
-      // console.log(state.quantity);
+    increase: (state, { payload }) => {
+      const cartItem = state.cart.find((item) => item.id === payload.id);
+      cartItem.amount = cartItem.amount + 1;
     },
+    decrease: (state, { payload }) => {
+      const cartItem = state.cart.find((item) => item.id === payload.id);
+      cartItem.amount = cartItem.amount - 1;
+    },
+
     addToken: (state, action) => {
       state.token = localStorage.getItem("token");
     },
@@ -228,7 +117,15 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { AddCard, INCREMENT, DECREMENT, addToken, addUser, logout } =
-  cartSlice.actions;
+export const {
+  AddCard,
+  increase,
+  decrease,
+  removeItem,
+  addToken,
+  addUser,
+  logout,
+  
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

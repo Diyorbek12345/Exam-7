@@ -4,6 +4,16 @@
   padding-bottom: 20px;
 }
 
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #212529;
+  padding: 20px;
+  z-index: 999; 
+}
+
 .login {
   width: 30px;
   height: 30px;
