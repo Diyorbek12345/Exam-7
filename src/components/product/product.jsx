@@ -26,7 +26,7 @@ export const Product = () => {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/clothes/${id}`);
+      const res = await fetch(`https://fakestoreapi.com/products/${id}`);
       setProduct(await res.json());
       setLoading(false);
     };
@@ -57,21 +57,22 @@ export const Product = () => {
       <>
         <div className="col-md-6 mb-10">
           <img
-            src={product.img}
-            alt={product.name}
+            src={product.image}
+            alt={product.title}
             height="400px"
             width="400px"
           />
         </div>
         <div className="col-md-6">
           <h4 className=" category uppercase text-black">{product.category}</h4>
-          <h1 className="display-5">{product.brand}</h1>
-          <h2 className="display-6">{product.model}</h2>
+          <h1 className="display-5 text-blue-900">{product.title}</h1>
+          <h2 className="display-6">{product.description}</h2>
           <p className="lead fw-bolder d-flex">
             Rating: {product.rate}
             <img src={rate} alt="" />
           </p>
           <h3 className="display-6 fw-bold my-4">$ {product.price}</h3>
+          <p>{product.rate}</p>
 
           <button
             className="btn btn-outline-dark px-4 py-2"

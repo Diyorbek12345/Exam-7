@@ -14,7 +14,7 @@ export const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/clothes");
+      const res = await fetch("https://fakestoreapi.com/products");
       // ?limit=4
       if (componentMounted) {
         const apiData = await res.json();
@@ -67,15 +67,27 @@ export const Products = () => {
           </button>
           <button
             className="btn btn-outline-dark me-2"
-            onClick={() => filterProduct("Men's wear")}
+            onClick={() => filterProduct("men's clothing")}
           >
             Men's cloth
           </button>
           <button
             className="btn btn-outline-dark me-2"
-            onClick={() => filterProduct("Women's wear")}
+            onClick={() => filterProduct("women's clothing")}
           >
             Women's cloth
+          </button>
+          <button
+            className="btn btn-outline-dark me-2"
+            onClick={() => filterProduct("jewelery")}
+          >
+            Jewelary
+          </button>
+          <button
+            className="btn btn-outline-dark me-2"
+            onClick={() => filterProduct("electronics")}
+          >
+            Electronics
           </button>
         </div>
         <div className="row justify-content-center mb-5">
@@ -85,10 +97,10 @@ export const Products = () => {
               key={index}
               style={{ width: "18rem", gap: "10px" }}
             >
-              <Card.Img src={product.img} height="250px" />
+              <Card.Img src={product.image} height="250px" />
               <Card.Body className="">
                 <Card.Title className="mb-0 text-center">
-                  {product.name}
+                  {product.title}
                 </Card.Title>
                 <Card.Text className="text-center uppercase">
                   {product.brand}

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { REMOVE_ITEM } from "./actions";
+// import { REMOVE_ITEM } from "./actions";
 
 const initialState = {
   cart: [],
@@ -11,7 +11,6 @@ const initialState = {
   loading: false,
   error: "",
 };
-
 
 export const singUpUser = createAsyncThunk("signupuser", async (body) => {
   const res = await fetch("ddddddddddd", {
@@ -50,20 +49,12 @@ export const cartSlice = createSlice({
         state.cart.push(tempvar);
       }
     },
-    removeItem: (state, action) => {
-      const itemId = action.payload;
-      if (state.cartItems) {
-        state.cartItems = state.cartItems.filter((item) => item.id !== itemId);
+     increase: (state, action) => {
+      const { productId } = action.payload;
+      const existingProduct = state.cart.find(item => item.id === productId);
+      if (existingProduct) {
+        existingProduct.quantity++;
       }
-      return state;
-    },
-    increase: (state, { payload }) => {
-      const cartItem = state.cart.find((item) => item.id === payload.id);
-      cartItem.amount = cartItem.amount + 1;
-    },
-    decrease: (state, { payload }) => {
-      const cartItem = state.cart.find((item) => item.id === payload.id);
-      cartItem.amount = cartItem.amount - 1;
     },
 
     addToken: (state, action) => {
@@ -99,6 +90,14 @@ export const cartSlice = createSlice({
       .addCase(LoginUser.rejected, (state) => {
         state.loading = false;
       })
+
+      // .addCase(deleteSkill.pending, (state) => {
+      //   state.btnLoading = true;
+      // })
+
+      // .addCase((deleteskill, state, { payload }) => {
+      //   state.skills = state.skills.filter((el) => el.id !== payload);
+      // })
       .addCase(singUpUser.pending, (state) => {
         state.loading = true;
       })
@@ -125,7 +124,6 @@ export const {
   addToken,
   addUser,
   logout,
-  
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
